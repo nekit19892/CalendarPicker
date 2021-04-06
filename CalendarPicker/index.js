@@ -328,7 +328,7 @@ export default class CalendarPicker extends Component {
     this.props.onMonthChange && this.props.onMonthChange(currentMonthYear);
   }
 
-  handleOnPressYear = () => {
+  /*handleOnPressYear = () => {
     this.setState({
       currentView: 'years'
     });
@@ -338,7 +338,7 @@ export default class CalendarPicker extends Component {
     this.setState({
       currentView: 'months'
     });
-  }
+  }*/
 
   handleOnSelectMonthYear = ({month, year}) => {
     const currentYear = year;
