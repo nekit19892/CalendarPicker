@@ -58,12 +58,12 @@ export default function HeaderControls(props) {
         textStyles={[styles.navButtonText, textStyle, previousTitleStyle]}
       />
       <View style={[styles.monthYearHeaderWrapper,monthYearHeaderWrapperStyle]}>
-        <TouchableOpacity onPress={onPressMonth}>
+        <TouchableOpacity>
           <Text style={[styles.monthHeaderMainText, textStyle, monthTitleStyle]} {...accessibilityProps}>
             { monthName }
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={onPressYear}>
+        <TouchableOpacity>
           <Text style={[styles.yearHeaderMainText, textStyle, yearTitleStyle]}>
             { year }
           </Text>
