@@ -340,7 +340,7 @@ export default class CalendarPicker extends Component {
     });
   }*/
 
-  handleOnSelectMonthYear = ({month, year}) => {
+  /*handleOnSelectMonthYear = ({month, year}) => {
     const currentYear = year;
     const currentMonth = month;
     const scrollableState = this.props.scrollable ? {
@@ -354,7 +354,7 @@ export default class CalendarPicker extends Component {
     };
 
     this.handleOnPressFinisher({month, year, extraState});
-  }
+  }*/
 
   resetSelections = () => {
     this.setState({
