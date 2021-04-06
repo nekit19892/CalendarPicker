@@ -73,8 +73,6 @@ export function makeStyles(params) {
     daysWrapper: {
       alignSelf: 'center',
       justifyContent: 'center',
-      paddingTop: 20,
-      paddingBottom: 20,
     },
 
     dayLabels: {
@@ -178,7 +176,8 @@ export function makeStyles(params) {
     },
 
     weekRow: {
-      flexDirection: 'row'
+      flexDirection: 'row',
+      paddingBottom: 10,
     },
 
     disabledText: {
