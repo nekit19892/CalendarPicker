@@ -62,8 +62,8 @@ export function makeStyles(params) {
       flexDirection: 'row',
       borderBottomWidth: 1,
       borderTopWidth: 1,
-      paddingTop: 20*scaler,
-      paddingBottom: 20*scaler,
+      paddingTop: 10*scaler,
+      paddingBottom: 10*scaler,
       alignSelf: 'center',
       justifyContent: 'center',
       backgroundColor: 'rgba(0,0,0,0.0)',
@@ -72,7 +72,9 @@ export function makeStyles(params) {
 
     daysWrapper: {
       alignSelf: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      paddingTop: 20,
+      paddingBottom: 20,
     },
 
     dayLabels: {
