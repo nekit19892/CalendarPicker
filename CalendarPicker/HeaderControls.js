@@ -86,6 +86,4 @@ HeaderControls.propTypes = {
   currentYear: PropTypes.number,
   onPressNext: PropTypes.func,
   onPressPrevious: PropTypes.func,
-  onPressMonth: PropTypes.func,
-  onPressYear: PropTypes.func,
 };
