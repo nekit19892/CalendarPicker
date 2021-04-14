@@ -177,6 +177,7 @@ export function makeStyles(params) {
 
     weekRow: {
       flexDirection: 'row',
+      alignItems: 'center',
       paddingBottom: 10,
     },
 
