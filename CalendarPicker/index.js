@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { View, Dimensions } from 'react-native';
-import { makeStyles } from './makeStyles';
-import { Utils } from './Utils';
+import React, {Component} from 'react';
+import {View, Dimensions} from 'react-native';
+import {makeStyles} from './makeStyles';
+import {Utils} from './Utils';
 import HeaderControls from './HeaderControls';
 import Weekdays from './Weekdays';
 import DaysGridView from './DaysGridView';
@@ -18,7 +18,8 @@ export default class CalendarPicker extends Component {
       currentMonth: null,
       currentYear: null,
       currentView: 'days',
-      selectedStartDate: props.selectedStartDate && moment(props.selectedStartDate),
+      selectedStartDate:
+        props.selectedStartDate && moment(props.selectedStartDate),
       selectedEndDate: props.selectedEndDate && moment(props.selectedEndDate),
       minDate: props.minDate && moment(props.minDate),
       maxDate: props.maxDate && moment(props.maxDate),
@@ -26,7 +27,10 @@ export default class CalendarPicker extends Component {
       ...this.updateScaledStyles(props),
       ...this.updateMonthYear(props.initialDate),
       ...this.updateDisabledDates(props.disabledDates),
-      ...this.updateMinMaxRanges(props.minRangeDuration, props.maxRangeDuration),
+      ...this.updateMinMaxRanges(
+        props.minRangeDuration,
+        props.maxRangeDuration,
+      ),
       ...this.createMonths(props, {}),
     };
     this.state.renderMonthParams = this.createMonthProps(this.state);
@@ -48,7 +52,7 @@ export default class CalendarPicker extends Component {
     selectMonthTitle: 'Select Month in ',
     selectYearTitle: 'Select Year',
     horizontal: true,
-    selectedDayStyle : null,
+    selectedDayStyle: null,
     selectedRangeStartStyle: null,
     selectedRangeEndStyle: null,
     selectedRangeStyle: null,
@@ -73,13 +77,14 @@ export default class CalendarPicker extends Component {
     }
 
     let selectedDateRanges = {};
-    const { selectedStartDate, selectedEndDate } = this.props;
-    if (selectedStartDate !== prevProps.selectedStartDate ||
-        selectedEndDate !== prevProps.selectedEndDate
+    const {selectedStartDate, selectedEndDate} = this.props;
+    if (
+      selectedStartDate !== prevProps.selectedStartDate ||
+      selectedEndDate !== prevProps.selectedEndDate
     ) {
       selectedDateRanges = {
         selectedStartDate: selectedStartDate && moment(selectedStartDate),
-        selectedEndDate: selectedEndDate && moment(selectedEndDate)
+        selectedEndDate: selectedEndDate && moment(selectedEndDate),
       };
       doStateUpdate = true;
     }
@@ -91,17 +96,22 @@ export default class CalendarPicker extends Component {
     }
 
     let rangeDurations = {};
-    if (prevProps.minRangeDuration !== this.props.minRangeDuration ||
-        prevProps.maxRangeDuration !== this.props.maxRangeDuration
+    if (
+      prevProps.minRangeDuration !== this.props.minRangeDuration ||
+      prevProps.maxRangeDuration !== this.props.maxRangeDuration
     ) {
       const {minRangeDuration, maxRangeDuration} = this.props;
-      rangeDurations = this.updateMinMaxRanges(minRangeDuration, maxRangeDuration);
+      rangeDurations = this.updateMinMaxRanges(
+        minRangeDuration,
+        maxRangeDuration,
+      );
       doStateUpdate = true;
     }
 
     let minMaxDates = {};
-    if (prevProps.minDate !== this.props.minDate ||
-        prevProps.minDate !== this.props.minDate
+    if (
+      prevProps.minDate !== this.props.minDate ||
+      prevProps.minDate !== this.props.minDate
     ) {
       minMaxDates.minDate = this.props.minDate && moment(this.props.minDate);
       minMaxDates.maxDate = this.props.maxDate && moment(this.props.maxDate);
@@ -129,7 +139,7 @@ export default class CalendarPicker extends Component {
     }
   }
 
-  updateScaledStyles = props => {
+  updateScaledStyles = (props) => {
     const {
       scaleFactor,
       selectedDayColor,
@@ -137,7 +147,7 @@ export default class CalendarPicker extends Component {
       todayBackgroundColor,
       width,
       height,
-      dayShape
+      dayShape,
     } = props;
 
     // The styles in makeStyles are intially scaled to this width
@@ -151,39 +161,38 @@ export default class CalendarPicker extends Component {
         selectedDayColor,
         selectedDayTextColor,
         todayBackgroundColor,
-        dayShape
-      })
+        dayShape,
+      }),
     };
-  }
+  };
 
   updateMonthYear = (initialDate = this.props.initialDate, updateState) => {
     const newState = {
       currentMonth: parseInt(moment(initialDate).month()),
-      currentYear: parseInt(moment(initialDate).year())
+      currentYear: parseInt(moment(initialDate).year()),
     };
     if (updateState) {
       this.setState(newState);
     }
     return newState;
-  }
+  };
 
   updateDisabledDates = (_disabledDates = []) => {
     let disabledDates = [];
     if (_disabledDates) {
       if (Array.isArray(_disabledDates)) {
         // Convert input date into timestamp
-        _disabledDates.map(date => {
+        _disabledDates.map((date) => {
           let thisDate = moment(date);
-          thisDate.set({ hour: 12, minute: 0, second: 0, millisecond: 0 });
+          thisDate.set({hour: 12, minute: 0, second: 0, millisecond: 0});
           disabledDates.push(thisDate.valueOf());
         });
-      }
-      else if (_disabledDates instanceof Function) {
+      } else if (_disabledDates instanceof Function) {
         disabledDates = _disabledDates;
       }
     }
-    return { disabledDates };
-  }
+    return {disabledDates};
+  };
 
   updateMinMaxRanges = (_minRangeDuration, _maxRangeDuration) => {
     let minRangeDuration = [];
@@ -191,12 +200,12 @@ export default class CalendarPicker extends Component {
 
     if (_minRangeDuration) {
       if (Array.isArray(_minRangeDuration)) {
-        _minRangeDuration.map(mrd => {
+        _minRangeDuration.map((mrd) => {
           let thisDate = moment(mrd.date);
-          thisDate.set({ hour: 12, minute: 0, second: 0, millisecond: 0 });
+          thisDate.set({hour: 12, minute: 0, second: 0, millisecond: 0});
           minRangeDuration.push({
             date: thisDate.valueOf(),
-            minDuration: mrd.minDuration
+            minDuration: mrd.minDuration,
           });
         });
       } else {
@@ -206,12 +215,12 @@ export default class CalendarPicker extends Component {
 
     if (_maxRangeDuration) {
       if (Array.isArray(_maxRangeDuration)) {
-        _maxRangeDuration.map(mrd => {
+        _maxRangeDuration.map((mrd) => {
           let thisDate = moment(mrd.date);
-          thisDate.set({ hour: 12, minute: 0, second: 0, millisecond: 0 });
+          thisDate.set({hour: 12, minute: 0, second: 0, millisecond: 0});
           maxRangeDuration.push({
             date: thisDate.valueOf(),
-            maxDuration: mrd.maxDuration
+            maxDuration: mrd.maxDuration,
           });
         });
       } else {
@@ -219,7 +228,7 @@ export default class CalendarPicker extends Component {
       }
     }
     return {minRangeDuration, maxRangeDuration};
-  }
+  };
 
   handleOnPressDay = ({year, month, day}) => {
     const {
@@ -238,7 +247,7 @@ export default class CalendarPicker extends Component {
       return;
     }
 
-    const date = moment({ year, month, day, hour: 12 });
+    const date = moment({year, month, day, hour: 12});
 
     if (allowRangeSelection && prevSelectedStartDate && !prevSelectedEndDate) {
       if (date.isSameOrAfter(prevSelectedStartDate, 'day')) {
@@ -246,46 +255,64 @@ export default class CalendarPicker extends Component {
         const selectedEndDate = date;
         this.setState({
           selectedEndDate,
-          renderMonthParams: this.createMonthProps({...this.state, selectedStartDate, selectedEndDate}),
+          renderMonthParams: this.createMonthProps({
+            ...this.state,
+            selectedStartDate,
+            selectedEndDate,
+          }),
         });
         // Sync end date with parent
         onDateChange(date, Utils.END_DATE);
-      }
-      else if (allowBackwardRangeSelect) { // date is before selectedStartDate
+      } else if (allowBackwardRangeSelect) {
+        // date is before selectedStartDate
         // Flip dates so that start is always before end.
         const selectedEndDate = prevSelectedStartDate.clone();
         const selectedStartDate = date;
-        this.setState({
-          selectedStartDate,
-          selectedEndDate,
-          renderMonthParams: this.createMonthProps({...this.state, selectedStartDate, selectedEndDate}),
-        }, () => {
-          // Sync both start and end dates with parent *after* state update.
-          onDateChange(this.state.selectedStartDate, Utils.START_DATE);
-          onDateChange(this.state.selectedEndDate, Utils.END_DATE);
-        });
+        this.setState(
+          {
+            selectedStartDate,
+            selectedEndDate,
+            renderMonthParams: this.createMonthProps({
+              ...this.state,
+              selectedStartDate,
+              selectedEndDate,
+            }),
+          },
+          () => {
+            // Sync both start and end dates with parent *after* state update.
+            onDateChange(this.state.selectedStartDate, Utils.START_DATE);
+            onDateChange(this.state.selectedEndDate, Utils.END_DATE);
+          },
+        );
       }
     } else {
       const syncEndDate = !!prevSelectedEndDate;
       const selectedStartDate = date;
       const selectedEndDate = null;
-      this.setState({
-        selectedStartDate,
-        selectedEndDate,
-        renderMonthParams: this.createMonthProps({...this.state, selectedStartDate, selectedEndDate}),
-      }, () => {
-        // Sync start date with parent *after* state update.
-        onDateChange(this.state.selectedStartDate, Utils.START_DATE);
-        if (syncEndDate) {
-          // sync end date with parent - must be cleared if previously set.
-          onDateChange(null, Utils.END_DATE);
-        }
-      });
+      this.setState(
+        {
+          selectedStartDate,
+          selectedEndDate,
+          renderMonthParams: this.createMonthProps({
+            ...this.state,
+            selectedStartDate,
+            selectedEndDate,
+          }),
+        },
+        () => {
+          // Sync start date with parent *after* state update.
+          onDateChange(this.state.selectedStartDate, Utils.START_DATE);
+          if (syncEndDate) {
+            // sync end date with parent - must be cleared if previously set.
+            onDateChange(null, Utils.END_DATE);
+          }
+        },
+      );
     }
-  }
+  };
 
   handleOnPressPrevious = () => {
-    const { currentMonth, currentYear } = this.state;
+    const {currentMonth, currentYear} = this.state;
     let previousMonth = currentMonth - 1;
     let year = currentYear;
     // if previousMonth is negative it means the current month is January,
@@ -296,10 +323,10 @@ export default class CalendarPicker extends Component {
     }
     const scrollFinisher = this.props.scrollable && this.scroller.scrollLeft;
     this.handleOnPressFinisher({year, month: previousMonth, scrollFinisher});
-  }
+  };
 
   handleOnPressNext = () => {
-    const { currentMonth, currentYear } = this.state;
+    const {currentMonth, currentYear} = this.state;
     let nextMonth = currentMonth + 1;
     let year = currentYear;
     // if nextMonth is greater than 11 it means the current month is December,
@@ -310,23 +337,22 @@ export default class CalendarPicker extends Component {
     }
     const scrollFinisher = this.props.scrollable && this.scroller.scrollRight;
     this.handleOnPressFinisher({year, month: nextMonth, scrollFinisher});
-  }
+  };
 
   handleOnPressFinisher = ({year, month, scrollFinisher, extraState}) => {
     if (scrollFinisher) {
       scrollFinisher();
-    }
-    else {
+    } else {
       const currentMonth = parseInt(month);
       const currentYear = parseInt(year);
       const renderMonthParams = extraState || {
-        renderMonthParams: {...this.state.renderMonthParams, month, year}
+        renderMonthParams: {...this.state.renderMonthParams, month, year},
       };
-      this.setState({ currentMonth, currentYear, ...renderMonthParams });
+      this.setState({currentMonth, currentYear, ...renderMonthParams});
     }
     const currentMonthYear = moment({year, month, hour: 12});
     this.props.onMonthChange && this.props.onMonthChange(currentMonthYear);
-  }
+  };
 
   /*handleOnPressYear = () => {
     this.setState({
@@ -359,11 +385,11 @@ export default class CalendarPicker extends Component {
   resetSelections = () => {
     this.setState({
       selectedStartDate: null,
-      selectedEndDate: null
+      selectedEndDate: null,
     });
-  }
+  };
 
-  createMonthProps = state => {
+  createMonthProps = (state) => {
     return {
       onPressDay: this.handleOnPressDay,
       month: state.currentMonth,
@@ -393,20 +419,16 @@ export default class CalendarPicker extends Component {
       selectedRangeStyle: this.props.selectedRangeStyle,
       selectedRangeEndStyle: this.props.selectedRangeEndStyle,
       customDatesStyles: this.props.customDatesStyles,
+      rangePointStyle: this.props.rangePointStyle,
     };
-  }
+  };
 
   createMonths = (props, {currentMonth, currentYear}) => {
     if (!props.scrollable) {
       return [];
     }
 
-    const {
-      initialDate,
-      minDate,
-      maxDate,
-      restrictMonthNavigation,
-    } = props;
+    const {initialDate, minDate, maxDate, restrictMonthNavigation} = props;
 
     let monthsList = [];
     let numMonths = this.numMonthsScroll;
@@ -414,17 +436,29 @@ export default class CalendarPicker extends Component {
 
     // Center start month in scroller.  Visible month is either the initialDate
     // prop, or the current month & year that has been selected.
-    let _initialDate = Number.isInteger(currentMonth) && Number.isInteger(currentYear) &&
-        moment({ year: currentYear, month: currentMonth, hour: 12 });
+    let _initialDate =
+      Number.isInteger(currentMonth) &&
+      Number.isInteger(currentYear) &&
+      moment({year: currentYear, month: currentMonth, hour: 12});
     _initialDate = _initialDate || initialDate;
-    let firstScrollerMonth = _initialDate.clone().subtract(numMonths/2, 'months');
-    if (minDate && restrictMonthNavigation && firstScrollerMonth.isBefore(minDate, 'month')) {
+    let firstScrollerMonth = _initialDate
+      .clone()
+      .subtract(numMonths / 2, 'months');
+    if (
+      minDate &&
+      restrictMonthNavigation &&
+      firstScrollerMonth.isBefore(minDate, 'month')
+    ) {
       firstScrollerMonth = moment(minDate);
     }
 
     for (let i = 0; i < numMonths; i++) {
       let month = firstScrollerMonth.clone().add(i, 'months');
-      if (maxDate && restrictMonthNavigation && month.isAfter(maxDate, 'month')) {
+      if (
+        maxDate &&
+        restrictMonthNavigation &&
+        month.isAfter(maxDate, 'month')
+      ) {
         break;
       }
       if (month.isSame(_initialDate, 'month')) {
@@ -437,12 +471,10 @@ export default class CalendarPicker extends Component {
       monthsList,
       initialScrollerIndex,
     };
-  }
+  };
 
   renderMonth(props) {
-    return (
-      <DaysGridView {...props} />
-    );
+    return <DaysGridView {...props} />;
   }
 
   render() {
@@ -527,9 +559,9 @@ export default class CalendarPicker extends Component {
             dayLabelsWrapper={dayLabelsWrapper}
             customDayHeaderStyles={customDayHeaderStyles}
           />
-          { scrollable ?
+          {scrollable ? (
             <Scroller
-              ref={scroller => this.scroller = scroller}
+              ref={(scroller) => (this.scroller = scroller)}
               data={monthsList}
               renderMonth={this.renderMonth}
               renderMonthParams={renderMonthParams}
@@ -542,9 +574,9 @@ export default class CalendarPicker extends Component {
               onMonthChange={onMonthChange}
               horizontal={horizontal}
             />
-            :
+          ) : (
             this.renderMonth(renderMonthParams)
-          }
+          )}
         </View>
       );
     }
